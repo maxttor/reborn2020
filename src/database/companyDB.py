@@ -23,7 +23,7 @@ class CompanyDB(object):
         return [[x["coords"], x["_id"], x["type"]] for x in self.collection.find()]
 
     def find_company(self, query):
-        myquery = {"$text": {"$search": query}}
+        myquery = {"$or":[ {"$text": {"$search": query}}, {"jobs": query}]}
 
         result = self.collection.find(myquery)
         return [{key: val for key, val in item.items() if key not in ["email", "phone", "coords"]} for item in result]
