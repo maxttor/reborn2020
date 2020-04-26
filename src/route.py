@@ -67,6 +67,12 @@ def get_all_markers():
     return JSONEncoder().encode(markers), 200
 
 
+@app.flask.route("/api/v1/findCompany/<query>")
+def find_company(query):
+    companies = app.mongo.companyDB.find_company(query)
+    return JSONEncoder().encode(companies), 200
+
+
 class Company:
     def __init__(self,
                  type=None,
