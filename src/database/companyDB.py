@@ -20,7 +20,7 @@ class CompanyDB(object):
         # for x in database:
         #     markerList.append((x["coords"], x["_id"]))
         # print(markerList)
-        return [[x["coords"], x["_id"], x["type"]] for x in self.collection.find() if x["coords"]]
+        return [[x["coords"], x["_id"], x["type"]] for x in self.collection.find() if "coords" in x]
 
     def find_company(self, query):
         myquery = {"$or":[ {"$text": {"$search": query}}, {"jobs": query}]}
