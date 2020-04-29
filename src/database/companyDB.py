@@ -28,6 +28,18 @@ class CompanyDB(object):
         result = self.collection.find(myquery)
         return [{key: val for key, val in item.items() if key not in ["email", "phone", "coords"]} for item in result]
 
+    def get_counters(self):
+        all_companies = self.collection.find().count()
+        jobs_danger = sum([int(item["jobs"]) for item in self.collection.find({"type": "needHelp"})])
+        companies_rescued = self.collection.find({"type": "story"})
+
+        return {
+            "all_companies": all_companies,
+            "jobs_danger": jobs_danger,
+            "companies_rescued": companies_rescued.count(),
+            "jobs_rescued": 0
+        }
+
     # Read Record
     # def read(self, name, arg=False):
     #

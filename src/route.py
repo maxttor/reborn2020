@@ -73,6 +73,12 @@ def find_company(query):
     return JSONEncoder().encode(companies), 200
 
 
+@app.flask.route("/api/v1/counters")
+def get_counters():
+    companies = app.mongo.companyDB.get_counters()
+    return JSONEncoder().encode(companies), 200
+
+
 class Company:
     def __init__(self,
                  type=None,
